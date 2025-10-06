@@ -295,8 +295,8 @@ wget -O - "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9165938D90FDD
 sudo mkdir -p /usr/local/qt6
 sudo chown -R long:long /usr/local/qt6
 
-sudo mkdir -p /opt
-sudo chown long:long /opt
+sudo mkdir -p /opt/vc
+sudo chown long:long /opt*
 ```
 
 note: replace `long`:`long` as your `USER`:`GROUP`
@@ -330,10 +330,10 @@ cd ~/rpi
 3. Install Qt 6.5.3 version:
 
 ```bash
-cd /tmp
+cd ~/rpi
 
 wget https://qt.mirror.constant.com/archive/qt/6.5/6.5.3/single/qt-everywhere-src-6.5.3.tar.xz
-tar xfv qt-everywhere-opensource-src-6.5.3.tar.xz
+tar xfv qt-everywhere-src-6.5.3.tar.xz && rm -rfv qt-everywhere-src-6.5.3.tar.xz
 
 cp -R qt-everywhere-src-6.5.3/qtbase/mkspecs/linux-arm-gnueabi-g++ qt-everywhere-src-6.5.3/qtbase/mkspecs/linux-arm-gnueabihf-g++
 
@@ -347,13 +347,14 @@ cd ~/rpi/tools
 
 wget https://releases.linaro.org/components/toolchain/binaries/7.4-2019.02/arm-linux-gnueabihf/gcc-linaro-7.4.1-2019.02-x86_64_arm-linux-gnueabihf.tar.xz
 
-tar xfv gcc-linaro-7.4.1-2019.02-x86_64_arm-linux-gnueabihf.tar.xz
+tar xfv gcc-linaro-7.4.1-2019.02-x86_64_arm-linux-gnueabihf.tar.xz && rm -rfv gcc-linaro-7.4.1-2019.02-x86_64_arm-linux-gnueabihf.tar.xz
 
 ```
 
 5. rsync sysroot with pi zero 2w:
 
 ```bash
+cd ~/rpi
 rsync -avz --rsync-path="sudo rsync" --delete long@192.168.1.7:/lib sysroot
 rsync -avz --rsync-path="sudo rsync" --delete long@192.168.1.7:/usr/include sysroot/usr
 rsync -avz --rsync-path="sudo rsync" --delete long@192.168.1.7:/usr/lib sysroot/usr
